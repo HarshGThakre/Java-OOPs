@@ -1,0 +1,276 @@
+​1. Person Class
+​This demonstrates basic class structure, attributes, and constructors.
+class Person {
+    String name;
+    int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+
+    public static void main(String[] args) {
+        Person p1 = new Person("Alice", 25);
+        Person p2 = new Person("Bob", 30);
+        
+        p1.display();
+        p2.display();
+    }
+}
+
+2. Library Management System
+​This uses an ArrayList to manage a collection of objects.
+import java.util.ArrayList;
+
+class Book {
+    String title, author, isbn;
+
+    public Book(String title, String author, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+    }
+
+    @Override
+    public String toString() {
+        return "Title: " + title + " | Author: " + author + " | ISBN: " + isbn;
+    }
+}
+
+class Library {
+    private ArrayList<Book> books = new ArrayList<>();
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public void removeBook(String isbn) {
+        books.removeIf(book -> book.isbn.equals(isbn));
+    }
+
+    public void displayBooks() {
+        if (books.isEmpty()) System.out.println("Library is empty.");
+        for (Book b : books) System.out.println(b);
+    }
+}
+
+
+3. CARRENTAL Class
+​This logic uses conditional statements to determine the Rent based on the CarType.
+class CARRENTAL {
+    int CarId;
+    String CarType;
+    float Rent;
+
+    public void GetCar(int id, String type) {
+        this.CarId = id;
+        this.CarType = type;
+        this.Rent = GetRent(); // Assign rent based on type
+    }
+
+    private float GetRent() {
+        if (CarType.equalsIgnoreCase("Small Car")) return 1000;
+        else if (CarType.equalsIgnoreCase("Van")) return 800;
+        else if (CarType.equalsIgnoreCase("SUV")) return 2500;
+        else return 0;
+    }
+
+    public void ShowCar() {
+        System.out.println("ID: " + CarId + " | Type: " + CarType + " | Rent: " + Rent);
+    }
+}
+
+4. Resort Class
+​This highlights the use of internal calculation methods to derive values (Amount) from existing data.
+import java.util.Scanner;
+
+class Resort {
+    private int RNo;
+    private String Name;
+    private float Charges;
+    private int Days;
+
+    private float Compute() {
+        float baseAmount = Days * Charges;
+        if (baseAmount > 11000) {
+            return (float) (1.02 * baseAmount);
+        }
+        return baseAmount;
+    }
+
+    public void GetInfo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Room No: "); RNo = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        System.out.print("Enter Name: "); Name = sc.nextLine();
+        System.out.print("Enter Charges: "); Charges = sc.nextFloat();
+        System.out.print("Enter Days: "); Days = sc.nextInt();
+    }
+
+    public void DispInfo() {
+        float amount = Compute();
+        System.out.println("\n--- Guest Details ---");
+        System.out.println("Room No: " + RNo);
+        System.out.println("Name: " + Name);
+        System.out.println("Charges/Day: " + Charges);
+        System.out.println("Stay Duration: " + Days + " days");
+        System.out.println("Total Amount: " + amount);
+    }
+}
+
+5. Employee Class
+​This class manages payroll data and uses a private calculation method to determine the net pay.
+import java.util.Scanner;
+
+class Employee {
+    int empno;
+    String ename;
+    float basic, hra, da, netpay;
+
+    // Task specifies "Calculate" returns float
+    public float Calculate() {
+        return basic + hra + da;
+    }
+
+    public void havedata() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Employee No: "); empno = sc.nextInt();
+        sc.nextLine(); 
+        System.out.print("Enter Name: "); ename = sc.nextLine();
+        System.out.print("Enter Basic Pay: "); basic = sc.nextFloat();
+        System.out.print("Enter HRA: "); hra = sc.nextFloat();
+        System.out.print("Enter DA: "); da = sc.nextFloat();
+        
+        // Invoke calculate and store in netpay
+        netpay = Calculate();
+    }
+
+    public void dispdata() {
+        System.out.println("\n--- Employee Slip ---");
+        System.out.println("ID: " + empno + " | Name: " + ename);
+        System.out.println("Basic: " + basic + " | HRA: " + hra + " | DA: " + da);
+        System.out.println("Net Pay: " + netpay);
+    }
+}
+
+6. Rectangle Area (Constructor Parameters)
+​This program demonstrates how to use constructors to initialize object state.
+class Rectangle {
+    int length, breadth;
+
+    // Constructor to set dimensions
+    public Rectangle(int l, int b) {
+        this.length = l;
+        this.breadth = b;
+    }
+
+    public int Area() {
+        return length * breadth;
+    }
+
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle(4, 5);
+        Rectangle r2 = new Rectangle(5, 8);
+
+        System.out.println("Area of Rectangle 1: " + r1.Area());
+        System.out.println("Area of Rectangle 2: " + r2.Area());
+    }
+}
+
+7. Abstraction (Shape Class)
+​Abstract classes cannot be instantiated; they serve as a blueprint for other classes.
+abstract class Shape {
+    abstract void calculate_area();
+
+    void display_info() {
+        System.out.println("This is a geometric shape.");
+    }
+}
+
+class Circle extends Shape {
+    double radius;
+    Circle(double r) { this.radius = r; }
+
+    @Override
+    void calculate_area() {
+        System.out.println("Circle Area: " + (Math.PI * radius * radius));
+    }
+}
+
+class RectangleShape extends Shape {
+    double l, w;
+    RectangleShape(double l, double w) { this.l = l; this.w = w; }
+
+    @Override
+    void calculate_area() {
+        System.out.println("Rectangle Area: " + (l * w));
+    }
+}
+
+// Observation: Shape s = new Shape(); 
+// Compilation Error: Shape is abstract; cannot be instantiated.
+8. Interface (Filterable)
+​Interfaces define a contract that multiple unrelated classes can implement in their own way.
+interface Filterable {
+    void apply_filter(String filter_type);
+    void reset_filter();
+}
+
+class ImageProcessor implements Filterable {
+    @Override
+    public void apply_filter(String filter_type) {
+        System.out.println("Applying " + filter_type + " filter to the image (e.g., Grayscale).");
+    }
+
+    @Override
+    public void reset_filter() {
+        System.out.println("Reverting image to original pixels.");
+    }
+}
+
+class DataAnalyzer implements Filterable {
+    @Override
+    public void apply_filter(String filter_type) {
+        System.out.println("Filtering dataset to remove " + filter_type + " records.");
+    }
+
+    @Override
+    public void reset_filter() {
+        System.out.println("Restoring all rows to the data table.");
+    }
+}
+
+9. Method Overloading (Calculator)
+class Calculator {
+    // Two integers
+    public int add(int a, int b) { return a + b; }
+
+    // Three integers
+    public int add(int a, int b, int c) { return a + b + c; }
+
+    // Two doubles
+    public double add(double a, double b) { return a + b; }
+
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        System.out.println("2 ints: " + calc.add(10, 20));       // Calls method 1
+        System.out.println("3 ints: " + calc.add(10, 20, 30));   // Calls method 2
+        System.out.println("2 doubles: " + calc.add(10.5, 5.5)); // Calls method 3
+    }
+}
+
+10. Bank Interface
+interface Bank {
+    double getInterestRate();
+}
+
+class SBI implements Bank { public double getInterestRate() { return 5.5; } }
+class HDFC implements Bank { public double getInterestRate() { return 6.0; } }
+class ICICI implements Bank { public double getInterestRate() { return 6.5; } }
+
+
