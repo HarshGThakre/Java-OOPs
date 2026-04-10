@@ -1,0 +1,130 @@
+11. Hierarchical Inheritance
+class Shape {
+    void display() { System.out.println("Displaying shape info..."); }
+}
+
+class Circle extends Shape {
+    void area(double r) { System.out.println("Circle Area: " + (3.14 * r * r)); }
+}
+
+class Rectangle extends Shape {
+    void area(int l, int b) { System.out.println("Rectangle Area: " + (l * b)); }
+}
+
+12. Payment System (Abstraction)
+​Abstract methods force subclasses to provide specific logic (e.g., how to pay).
+abstract class Payment {
+    abstract void pay(double amount);
+}
+
+class CreditCardPayment extends Payment {
+    void pay(double amount) { System.out.println("Paid ₹" + amount + " via Credit Card."); }
+}
+
+class UPIPayment extends Payment {
+    void pay(double amount) { System.out.println("Paid ₹" + amount + " via UPI."); }
+}
+
+13 & 14. Runtime Polymorphism & Multilevel Inheritance
+​Runtime Polymorphism occurs when a parent class reference points to a child class object, and the overridden method is called at execution time.
+// Task 14: Multilevel Inheritance
+class Person {
+    void role() { System.out.println("I am a Person."); }
+}
+
+class Employee extends Person {
+    @Override
+    void role() { System.out.println("I am an Employee."); }
+}
+
+class Manager extends Employee {
+    @Override
+    void role() { System.out.println("I am a Manager."); }
+}
+
+// In Main: 
+// Person p = new Manager(); 
+// p.role(); // Outputs "I am a Manager" (Dynamic Method Dispatch)
+
+15. Ride Booking (Array of Objects)
+abstract class Ride {
+    double distance;
+    Ride(double d) { this.distance = d; }
+    abstract void calculateFare();
+}
+
+class BikeRide extends Ride {
+    BikeRide(double d) { super(d); }
+    void calculateFare() { System.out.println("Bike Fare: ₹" + (distance * 5)); }
+}
+// Repeat logic for AutoRide (*8) and CarRide (*12)
+
+16. Hospital Staff (Method Overriding)
+class Staff { void work() { System.out.println("Staff is working."); } }
+class Doctor extends Staff { void work() { System.out.println("Doctor treats patients."); } }
+class Nurse extends Staff { void work() { System.out.println("Nurse assists patients."); } }
+
+
+17. Static Variable (Employee Counter)
+​The static keyword makes a variable shared across all instances of a class.
+class Employee {
+    static int employeeCount = 0;
+    String name;
+
+    Employee(String name) {
+        this.name = name;
+        employeeCount++; // Increments for every new object
+    }
+
+    static void showCount() {
+        System.out.println("Total Employees: " + employeeCount);
+    }
+}
+
+
+18. Final Variable
+​A final variable's value cannot be changed once initialized.
+class Bank {
+    final double interestRate = 7.5; // Constant
+
+    void calculateInterest(double amount) {
+        System.out.println("Interest: " + (amount * interestRate / 100));
+    }
+}
+
+
+19. Array of Book Objects.
+class Book {
+    String title, author;
+    double price;
+
+    Book(String t, String a, double p) { title = t; author = a; price = p; }
+
+    public static void main(String[] args) {
+        Book[] library = new Book[2];
+        library[0] = new Book("Java Basics", "Author A", 500);
+        library[1] = new Book("OOP Concepts", "Author B", 600);
+
+        for (Book b : library) {
+            System.out.println(b.title + " by " + b.author + " costs " + b.price);
+        }
+    }
+}
+
+
+20. The 'this' Keyword
+​The this keyword resolves ambiguity when parameter names match instance variable names.
+class Employee {
+    String name;
+    double salary;
+
+    Employee(String name, double salary) {
+        this.name = name;      // 'this.name' refers to the class variable
+        this.salary = salary;  // 'salary' refers to the parameter
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", Salary: " + salary);
+    }
+}
+
